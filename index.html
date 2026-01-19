@@ -3,39 +3,97 @@
 <head>
   <meta charset="UTF-8">
   <title>Visualisation Wikidata – Villes françaises</title>
+
   <style>
+    :root {
+      --bg: #f6f7fb;
+      --card: #ffffff;
+      --primary: #1f4fd8;
+      --text: #1f2937;
+      --muted: #6b7280;
+      --border: #e5e7eb;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
+      margin: 0;
+      padding: 40px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                   Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
     }
-    h1, h2 {
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 30px;
+      color: var(--primary);
+    }
+
+    h2 {
       margin-top: 40px;
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+      color: var(--text);
     }
+
+    .card {
+      background-color: var(--card);
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+      margin-bottom: 40px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      border-radius: 6px;
+    }
+
     img {
       max-width: 100%;
-      border: 1px solid #ddd;
+      border-radius: 6px;
+      border: 1px solid var(--border);
     }
-    iframe {
-      border: none;
+
+    footer {
+      margin-top: 60px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      text-align: center;
     }
   </style>
 </head>
+
 <body>
 
   <h1>Visualisation des populations de villes françaises</h1>
 
-  <h2>1. Graphique issu de Wikidata Query Service</h2>
+  <div class="card">
+    <h2>1. Graphique issu de Wikidata Query Service</h2>
 
-  <iframe
-    style="width:100%; height:500px;"
-    src="https://query.wikidata.org/embed.html#SELECT%20%3Fcity%20%3FcityLabel%20%3Fpopulation%20%3FregionLabel%20%3Finception%20%3Fcoord%20%3Fimage%0AWHERE%20%7B%0A%20%20%3Fcity%20wdt%3AP31%20wd%3AQ515%20%3B%0A%20%20%20%20wdt%3AP17%20wd%3AQ142%20%3B%0A%20%20%20%20wdt%3AP1082%20%3Fpopulation%20%3B%0A%20%20%20%20wdt%3AP131%20%3Fregion%20%3B%0A%20%20%20%20wdt%3AP571%20%3Finception%20%3B%0A%20%20%20%20wdt%3AP625%20%3Fcoord%20.%0A%20%20OPTIONAL%20%7B%20%3Fcity%20wdt%3AP18%20%3Fimage%20%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22fr%22%20%7D%0A%7D%0AORDER%20BY%20DESC(%3Fpopulation)%0ALIMIT%2020"
-    referrerpolicy="origin"
-    sandbox="allow-scripts allow-same-origin allow-popups">
-  </iframe>
+    <iframe
+      src="https://query.wikidata.org/embed.html#SELECT%20%3Fcity%20%3FcityLabel%20%3Fpopulation%20%3FregionLabel%20%3Finception%20%3Fcoord%20%3Fimage%0AWHERE%20%7B%0A%20%20%3Fcity%20wdt%3AP31%20wd%3AQ515%20%3B%0A%20%20%20%20wdt%3AP17%20wd%3AQ142%20%3B%0A%20%20%20%20wdt%3AP1082%20%3Fpopulation%20%3B%0A%20%20%20%20wdt%3AP131%20%3Fregion%20%3B%0A%20%20%20%20wdt%3AP571%20%3Finception%20%3B%0A%20%20%20%20wdt%3AP625%20%3Fcoord%20.%0A%20%20OPTIONAL%20%7B%20%3Fcity%20wdt%3AP18%20%3Fimage%20%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22fr%22%20%7D%0A%7D%0AORDER%20BY%20DESC(%3Fpopulation)%0ALIMIT%2020"
+      referrerpolicy="origin"
+      sandbox="allow-scripts allow-same-origin allow-popups">
+    </iframe>
+  </div>
 
-  <h2>2. Graphique réalisé avec RAWGraphs</h2>
+  <div class="card">
+    <h2>2. Graphique réalisé avec RAWGraphs</h2>
+    <img src="viz.png" alt="Graphique RAWGraphs – population des villes">
+  </div>
 
-  <img src="viz.png" alt="Graphique RAWGraphs – population des villes">
+  <footer>
+    Visualisation réalisée à partir des données Wikidata – Exercice de visualisation
+  </footer>
 
 </body>
 </html>
