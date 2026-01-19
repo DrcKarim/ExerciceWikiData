@@ -1,5 +1,3 @@
-Voici ton **README.md complet**, clair, professionnel, en Markdown, parfaitement adapté à ton exercice.Tu peux **copier-coller directement** dans ton repo GitHub.
-
 Visualisation de données avec Wikidata & RAWGraphs
 =====================================================
 
@@ -138,5 +136,3 @@ Cet exercice montre :
     
 *   la publication d’un mini-projet en ligne
     
-
-Si tu veux une **version anglaise**, ou un **README plus académique**, je peux te le faire aussi.
