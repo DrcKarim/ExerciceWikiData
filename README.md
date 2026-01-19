@@ -48,8 +48,24 @@ La requête suivante extrait des informations sur les **villes françaises**, in
     
 *   une image liée à la ville (image)
     
+```bash
+SELECT ?city ?cityLabel ?population ?regionLabel ?inception ?coord ?image 
+WHERE {
+  ?city wdt:P31 wd:Q515 ;
+        wdt:P17 wd:Q142 ;
+        wdt:P1082 ?population ;
+        wdt:P131 ?region ;
+        wdt:P571 ?inception ;
+        wdt:P625 ?coord .
+  OPTIONAL { ?city wdt:P18 ?image }
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   SELECT ?city ?cityLabel ?population ?regionLabel ?inception ?coord ?image  WHERE {    ?city wdt:P31 wd:Q515 ;          wdt:P17 wd:Q142 ;          wdt:P1082 ?population ;          wdt:P131 ?region ;          wdt:P571 ?inception ;          wdt:P625 ?coord .    OPTIONAL { ?city wdt:P18 ?image }    SERVICE wikibase:label {      bd:serviceParam wikibase:language "fr"    }  }  ORDER BY DESC(?population)  LIMIT 20   `
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language "fr".
+  }
+}
+ORDER BY DESC(?population)
+LIMIT 20
+```
 
 ### 🧠 Pourquoi cette requête ?
 
@@ -64,8 +80,9 @@ Wikidata propose une visualisation intégrée via un **iframe**.Ce graphique est
 
 Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML
 
-  `style="width:100%; height:500px;"    src="https://query.wikidata.org/embed.html#...[URL abrégée]"    referrerpolicy="origin"    sandbox="allow-scripts allow-same-origin allow-popups">`
-
+ ```bash
+ style="width:100%; height:500px;"    src="https://query.wikidata.org/embed.html#...[URL abrégée]"    referrerpolicy="origin"    sandbox="allow-scripts allow-same-origin allow-popups"> 
+```
 📊 3. Visualisation via RAWGraphs
 ---------------------------------
 
@@ -104,8 +121,12 @@ La page web complète est disponible ici :
 📦 Structure du projet
 ----------------------
 
-Plain textANTLR4BashCC#CSSCoffeeScriptCMakeDartDjangoDockerEJSErlangGitGoGraphQLGroovyHTMLJavaJavaScriptJSONJSXKotlinLaTeXLessLuaMakefileMarkdownMATLABMarkupObjective-CPerlPHPPowerShell.propertiesProtocol BuffersPythonRRubySass (Sass)Sass (Scss)SchemeSQLShellSwiftSVGTSXTypeScriptWebAssemblyYAMLXML`   /  ├── index.html  ├── viz.png          # Graphique RAWGraphs  └── README.md   `
-
+ ```bash
+├── index.html  
+├── viz.png          # Graphique RAWGraphs  
+└── README.md  
+ ```
+ 
 ✔ Conclusion
 ------------
 
