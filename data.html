@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Visualisation Wikidata – Villes françaises</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+    }
+    h1, h2 {
+      margin-top: 40px;
+    }
+    img {
+      max-width: 100%;
+      border: 1px solid #ddd;
+    }
+    iframe {
+      border: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Visualisation des populations de villes françaises</h1>
+
+  <h2>1. Graphique issu de Wikidata Query Service</h2>
+
+  <iframe
+    style="width:100%; height:500px;"
+    src="https://query.wikidata.org/embed.html#SELECT%20%3Fcity%20%3FcityLabel%20%3Fpopulation%20%3FregionLabel%20%3Finception%20%3Fcoord%20%3Fimage%0AWHERE%20%7B%0A%20%20%3Fcity%20wdt%3AP31%20wd%3AQ515%20%3B%0A%20%20%20%20wdt%3AP17%20wd%3AQ142%20%3B%0A%20%20%20%20wdt%3AP1082%20%3Fpopulation%20%3B%0A%20%20%20%20wdt%3AP131%20%3Fregion%20%3B%0A%20%20%20%20wdt%3AP571%20%3Finception%20%3B%0A%20%20%20%20wdt%3AP625%20%3Fcoord%20.%0A%20%20OPTIONAL%20%7B%20%3Fcity%20wdt%3AP18%20%3Fimage%20%7D%0A%20%20SERVICE%20wikibase%3Alabel%20%7B%20bd%3AserviceParam%20wikibase%3Alanguage%20%22fr%22%20%7D%0A%7D%0AORDER%20BY%20DESC(%3Fpopulation)%0ALIMIT%2020"
+    referrerpolicy="origin"
+    sandbox="allow-scripts allow-same-origin allow-popups">
+  </iframe>
+
+  <h2>2. Graphique réalisé avec RAWGraphs</h2>
+
+  <img src="viz.png" alt="Graphique RAWGraphs – population des villes">
+
+</body>
+</html>

@@ -1,0 +1,13 @@
+city,cityLabel,population,regionLabel,inception,coord,image
+http://www.wikidata.org/entity/Q249884,Saint-Pierre,85038,La Réunion,1735-01-01T00:00:00Z,Point(55.477777777 -21.341944444),http://commons.wikimedia.org/wiki/Special:FilePath/Saint-Pierre97410h%C3%A9licoptere.jpg
+http://www.wikidata.org/entity/Q249884,Saint-Pierre,85038,arrondissement de Saint-Pierre,1735-01-01T00:00:00Z,Point(55.477777777 -21.341944444),http://commons.wikimedia.org/wiki/Special:FilePath/Saint-Pierre97410h%C3%A9licoptere.jpg
+http://www.wikidata.org/entity/Q249884,Saint-Pierre,85038,canton de Saint-Pierre-4,1735-01-01T00:00:00Z,Point(55.477777777 -21.341944444),http://commons.wikimedia.org/wiki/Special:FilePath/Saint-Pierre97410h%C3%A9licoptere.jpg
+http://www.wikidata.org/entity/Q44401,Cayenne,62675,Guyane,1664-01-01T00:00:00Z,Point(-52.335 4.938611111),http://commons.wikimedia.org/wiki/Special:FilePath/Cayenne%20av%20G%C3%A9n%C3%A9ral-de-Gaulle.jpg
+http://www.wikidata.org/entity/Q44401,Cayenne,62675,canton de Cayenne Centre,1664-01-01T00:00:00Z,Point(-52.335 4.938611111),http://commons.wikimedia.org/wiki/Special:FilePath/Cayenne%20av%20G%C3%A9n%C3%A9ral-de-Gaulle.jpg
+http://www.wikidata.org/entity/Q44401,Cayenne,62675,arrondissement de Cayenne,1664-01-01T00:00:00Z,Point(-52.335 4.938611111),http://commons.wikimedia.org/wiki/Special:FilePath/Cayenne%20av%20G%C3%A9n%C3%A9ral-de-Gaulle.jpg
+http://www.wikidata.org/entity/Q44401,Cayenne,62675,canton de Cayenne Sud-Ouest,1664-01-01T00:00:00Z,Point(-52.335 4.938611111),http://commons.wikimedia.org/wiki/Special:FilePath/Cayenne%20av%20G%C3%A9n%C3%A9ral-de-Gaulle.jpg
+http://www.wikidata.org/entity/Q44401,Cayenne,62675,canton de Cayenne Sud,1664-01-01T00:00:00Z,Point(-52.335 4.938611111),http://commons.wikimedia.org/wiki/Special:FilePath/Cayenne%20av%20G%C3%A9n%C3%A9ral-de-Gaulle.jpg
+http://www.wikidata.org/entity/Q44401,Cayenne,62675,canton de Cayenne Sud-Est,1664-01-01T00:00:00Z,Point(-52.335 4.938611111),http://commons.wikimedia.org/wiki/Special:FilePath/Cayenne%20av%20G%C3%A9n%C3%A9ral-de-Gaulle.jpg
+http://www.wikidata.org/entity/Q44401,Cayenne,62675,canton de Cayenne Nord-Est,1664-01-01T00:00:00Z,Point(-52.335 4.938611111),http://commons.wikimedia.org/wiki/Special:FilePath/Cayenne%20av%20G%C3%A9n%C3%A9ral-de-Gaulle.jpg
+http://www.wikidata.org/entity/Q44401,Cayenne,62675,canton de Cayenne Nord-Ouest,1664-01-01T00:00:00Z,Point(-52.335 4.938611111),http://commons.wikimedia.org/wiki/Special:FilePath/Cayenne%20av%20G%C3%A9n%C3%A9ral-de-Gaulle.jpg
+http://www.wikidata.org/entity/Q130800,Papeete,26654,îles du Vent,1818-01-01T00:00:00Z,Point(-149.568888888 -17.539722222),http://commons.wikimedia.org/wiki/Special:FilePath/Papeete%20-%20Marina%20Taina.JPG
