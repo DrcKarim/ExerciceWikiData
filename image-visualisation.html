@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Visualisation interactive d'images avec IIIF - Cours de Data Visualisation">
+    <title>Visualisation Interactive d'Images</title>
+    
+    <style>
+        /* ==========================================
+           VARIABLES CSS
+           ========================================== */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #ecf0f1;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.15);
+            --border-radius: 12px;
+            --spacing: 2rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* ==========================================
+           TYPOGRAPHIE ET CORPS
+           ========================================== */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: var(--spacing);
+            min-height: 100vh;
+        }
+        
+        /* ==========================================
+           CONTENEUR PRINCIPAL
+           ========================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            padding: var(--spacing);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        /* ==========================================
+           EN-TÊTE
+           ========================================== */
+        header {
+            text-align: center;
+            margin-bottom: calc(var(--spacing) * 1.5);
+            padding-bottom: var(--spacing);
+            border-bottom: 3px solid var(--secondary-color);
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        /* ==========================================
+           CARTE DE VISUALISATION
+           ========================================== */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing);
+            margin-bottom: var(--spacing);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .card h2 {
+            color: var(--secondary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--bg-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card h2::before {
+            content: "🖼️";
+            font-size: 1.5rem;
+        }
+        
+        .card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        
+        /* ==========================================
+           BADGE INFORMATIF
+           ========================================== */
+        .info-badge {
+            display: inline-block;
+            background-color: #e8f4f8;
+            color: var(--secondary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        /* ==========================================
+           CONTENEUR IFRAME
+           ========================================== */
+        .viewer-container {
+            background-color: #f8f9fa;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .viewer-container iframe {
+            display: block;
+            width: 100%;
+            height: 600px;
+            border: none;
+            border-radius: var(--border-radius);
+        }
+        
+        /* ==========================================
+           LISTE DE FONCTIONNALITÉS
+           ========================================== */
+        .features {
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary-color);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+        }
+        
+        .features h3 {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            margin-bottom: 0.8rem;
+        }
+        
+        .features ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .features li {
+            color: #666;
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .features li::before {
+            content: "✓";
+            color: var(--secondary-color);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        /* ==========================================
+           PIED DE PAGE
+           ========================================== */
+        footer {
+            text-align: center;
+            margin-top: calc(var(--spacing) * 1.5);
+            padding-top: var(--spacing);
+            border-top: 2px solid #ddd;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        footer a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+        
+        /* ==========================================
+           RESPONSIVE
+           ========================================== */
+        @media (max-width: 768px) {
+            :root {
+                --spacing: 1rem;
+            }
+            
+            body {
+                padding: 1rem;
+            }
+            
+            .card h2 {
+                font-size: 1.5rem;
+            }
+            
+            .viewer-container iframe {
+                height: 400px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .viewer-container iframe {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Conteneur principal pour une mise en page centrée et élégante -->
+    <div class="container">
+        
+        <!-- ==========================================
+             EN-TÊTE DU DOCUMENT
+             ========================================== -->
+        <header>
+            <h1>Visualisation Interactive d'Images</h1>
+            <p class="subtitle">
+                Cette visualisation permet d'explorer une image en haute définition 
+                à l'aide d'un visualiseur IIIF interactif. Le protocole 
+                <strong>IIIF</strong> (International Image Interoperability Framework) 
+                permet de naviguer dans des images de très haute résolution, 
+                de zoomer sur les détails et d'annoter les œuvres.
+            </p>
+        </header>
+        
+        <!-- ==========================================
+             VISUALISATION MIRADOR - IIIF VIEWER
+             ========================================== -->
+        <section class="card">
+            <h2>Visualiseur Mirador</h2>
+            
+            <span class="info-badge">🔍 Exploration haute résolution</span>
+            
+            <p>
+                <strong>Mirador</strong> est un visualiseur d'images IIIF open-source 
+                qui permet d'explorer des collections d'images numériques provenant 
+                de musées, bibliothèques et archives du monde entier. Cette visualisation 
+                présente une œuvre issue des collections du <em>Harvard Art Museums</em>.
+            </p>
+            
+            <!-- Fonctionnalités du visualiseur -->
+            <div class="features">
+                <h3>Fonctionnalités interactives :</h3>
+                <ul>
+                    <li>Zoom infini pour explorer les moindres détails de l'œuvre</li>
+                    <li>Navigation fluide avec déplacement par glisser-déposer</li>
+                    <li>Rotation de l'image à 90° pour différents angles de vue</li>
+                    <li>Métadonnées enrichies sur l'œuvre et l'artiste</li>
+                    <li>Compatibilité avec des milliers d'institutions culturelles</li>
+                </ul>
+            </div>
+            
+            <!-- 
+                Iframe Mirador - Visualiseur IIIF
+                Source : Harvard Art Museums
+                Manifest IIIF : https://iiif.harvardartmuseums.org/manifests/object/299843
+                
+                Le protocole IIIF permet l'interopérabilité des images numériques
+                entre différentes institutions culturelles et plateformes de visualisation.
+            -->
+            <div class="viewer-container">
+                <iframe 
+                   src="https://projectmirador.org/embed/?manifest=https://iiif.harvardartmuseums.org/manifests/object/299843"
+                   title="Visualiseur Mirador - Harvard Art Museums"
+                   allowfullscreen>
+                </iframe>
+            </div>
+        </section>
+        
+        <!-- Section d'information complémentaire -->
+        <section class="card">
+            <h2>À propos du protocole IIIF</h2>
+            
+            <p>
+                Le <strong>International Image Interoperability Framework</strong> (IIIF) 
+                est un ensemble de standards ouverts pour la diffusion d'images sur le web. 
+                Il permet aux institutions culturelles de partager leurs collections numériques 
+                de manière standardisée, facilitant ainsi la recherche, la comparaison et 
+                l'annotation collaborative d'œuvres d'art et de documents historiques.
+            </p>
+            
+            <p>
+                Plus de 500 institutions dans le monde utilisent IIIF, incluant le Louvre, 
+                la British Library, le Getty Museum, et la Bibliothèque nationale de France. 
+                Cette standardisation révolutionne l'accès au patrimoine culturel numérique.
+            </p>
+        </section>
+        
+        <!-- ==========================================
+             PIED DE PAGE
+             ========================================== -->
+        <footer>
+            <p>
+                📚 <strong>Cours Data Visualisation – Exercice 2</strong><br>
+                Janvier 2026<br>
+                Outil utilisé : 
+                <a href="https://projectmirador.org/" target="_blank">Mirador</a> | 
+                Protocole : 
+                <a href="https://iiif.io/" target="_blank">IIIF</a>
+            </p>
+        </footer>
+        
+    </div>
+</body>
+</html>

@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Visualisation interactive de textes - Cours de Data Visualisation">
+    <title>Visualisation Interactive de Textes</title>
+    
+    <style>
+        /* ==========================================
+           VARIABLES ET RESET
+           ========================================== */
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --bg-color: #ecf0f1;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-hover: 0 8px 16px rgba(0, 0, 0, 0.15);
+            --border-radius: 12px;
+            --spacing: 2rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* ==========================================
+           TYPOGRAPHIE ET CORPS
+           ========================================== */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: var(--spacing);
+            min-height: 100vh;
+        }
+        
+        /* ==========================================
+           CONTENEUR PRINCIPAL
+           ========================================== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--bg-color);
+            border-radius: var(--border-radius);
+            padding: var(--spacing);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        /* ==========================================
+           EN-TÊTE
+           ========================================== */
+        header {
+            text-align: center;
+            margin-bottom: calc(var(--spacing) * 1.5);
+            padding-bottom: var(--spacing);
+            border-bottom: 3px solid var(--secondary-color);
+        }
+        
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+        
+        /* ==========================================
+           CARTES DE VISUALISATION
+           ========================================== */
+        .card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: var(--spacing);
+            margin-bottom: var(--spacing);
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .card h2 {
+            color: var(--secondary-color);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--bg-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .card h2::before {
+            content: "📊";
+            font-size: 1.5rem;
+        }
+        
+        .card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            line-height: 1.8;
+        }
+        
+        /* ==========================================
+           IFRAME - VISUALISATIONS
+           ========================================== */
+        .iframe-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 75%; /* Ratio 4:3 par défaut */
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .iframe-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+        
+        /* Ajustement pour le WordTree (plus haut) */
+        .wordtree-container {
+            padding-bottom: 85%;
+        }
+        
+        /* Ajustement pour Voyant Tools */
+        .voyant-container {
+            padding-bottom: 70%;
+        }
+        
+        /* ==========================================
+           BADGE INFORMATIF
+           ========================================== */
+        .info-badge {
+            display: inline-block;
+            background-color: #e8f4f8;
+            color: var(--secondary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        /* ==========================================
+           PIED DE PAGE
+           ========================================== */
+        footer {
+            text-align: center;
+            margin-top: calc(var(--spacing) * 1.5);
+            padding-top: var(--spacing);
+            border-top: 2px solid #ddd;
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        footer a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+        
+        /* ==========================================
+           RESPONSIVE
+           ========================================== */
+        @media (max-width: 768px) {
+            :root {
+                --spacing: 1rem;
+            }
+            
+            body {
+                padding: 1rem;
+            }
+            
+            .card h2 {
+                font-size: 1.5rem;
+            }
+            
+            .iframe-container {
+                padding-bottom: 100%;
+            }
+            
+            .wordtree-container,
+            .voyant-container {
+                padding-bottom: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Conteneur principal pour une mise en page centrée et élégante -->
+    <div class="container">
+        
+        <!-- ==========================================
+             EN-TÊTE DU DOCUMENT
+             ========================================== -->
+        <header>
+            <h1>Visualisation Interactive de Textes</h1>
+            <p class="subtitle">
+                Exploration de deux outils puissants de datavisualisation textuelle : 
+                le <strong>WordTree</strong> pour analyser les structures narratives et 
+                <strong>Voyant Tools</strong> pour explorer les réseaux sémantiques. 
+                Ces visualisations sont basées sur un extrait de 
+                <em>Vingt Mille Lieues sous les Mers</em> de Jules Verne.
+            </p>
+        </header>
+        
+        <!-- ==========================================
+             VISUALISATION 1 : WORDTREE
+             ========================================== -->
+        <section class="card">
+            <h2>1. WordTree – Arbre de Mots</h2>
+            
+            <span class="info-badge">📖 Analyse contextuelle</span>
+            
+            <p>
+                Le <strong>WordTree</strong> est une visualisation interactive qui permet 
+                d'explorer les contextes d'apparition d'un mot ou d'une expression dans un texte. 
+                À partir d'un mot-clé (par exemple "Capitaine Nemo"), l'arbre affiche toutes les 
+                suites de mots qui suivent ou précèdent ce terme, créant ainsi une structure 
+                arborescente. Cet outil est particulièrement utile pour :
+            </p>
+            <ul style="margin-left: 2rem; margin-bottom: 1.5rem; color: #666;">
+                <li>Identifier les patterns linguistiques récurrents</li>
+                <li>Comprendre les associations sémantiques autour d'un concept</li>
+                <li>Analyser les tournures narratives d'un auteur</li>
+            </ul>
+            
+            <!-- 
+                Iframe pour le WordTree
+                Remplacer WORDTREE_URL_HERE par l'URL générée depuis :
+                https://www.jasondavies.com/wordtree/
+                
+                Exemple de processus :
+                1. Copier un extrait de "Vingt Mille Lieues sous les Mers"
+                2. Le coller dans l'outil WordTree
+                3. Choisir un mot-clé (ex: "capitaine", "Nemo", "Nautilus")
+                4. Générer l'arbre et copier l'URL
+            -->
+            <div class="iframe-container wordtree-container">
+                <iframe src="https://www.jasondavies.com/wordtree/?source=1097c0bb58e786b25406370d7d1e35f1&prefix=capitaine" 
+                        title="Visualisation WordTree - Vingt Mille Lieues sous les Mers">
+                </iframe>
+            </div>
+        </section>
+        
+        <!-- ==========================================
+             VISUALISATION 2 : VOYANT TOOLS
+             ========================================== -->
+        <section class="card">
+            <h2>2. Voyant Tools – Réseau de Liens</h2>
+            
+            <span class="info-badge">🔗 Analyse de cooccurrences</span>
+            
+            <p>
+                <strong>Voyant Tools</strong> est une suite d'outils web pour l'analyse de texte. 
+                La visualisation <em>Links</em> (ou <em>Cirrus</em> pour un nuage de mots) révèle 
+                les relations entre les termes les plus fréquents du corpus. Les liens entre les mots 
+                représentent leurs cooccurrences : plus deux mots apparaissent ensemble dans le texte, 
+                plus le lien est fort. Cette approche permet de :
+            </p>
+            <ul style="margin-left: 2rem; margin-bottom: 1.5rem; color: #666;">
+                <li>Visualiser le réseau sémantique d'un texte</li>
+                <li>Identifier les thématiques centrales et leurs interconnexions</li>
+                <li>Découvrir des associations non évidentes entre concepts</li>
+            </ul>
+            
+            <!-- 
+                Iframe pour Voyant Tools
+                Remplacer VOYANT_URL_HERE par l'URL générée depuis :
+                https://voyant-tools.org/
+                
+                Exemple de processus :
+                1. Aller sur https://voyant-tools.org/
+                2. Coller le même extrait de Jules Verne
+                3. Cliquer sur "Révéler" pour lancer l'analyse
+                4. Sélectionner l'outil "Links" ou "Cirrus" dans le menu
+                5. Cliquer sur l'icône de partage et copier l'URL de l'iframe
+            -->
+            <div class="iframe-container voyant-container">
+            <!--    <iframe src="VOYANT_URL_HERE" 
+                        title="Visualisation Voyant Tools - Réseau de liens">
+                </iframe> -->
+               
+<div style="width:100%; max-width:900px; margin:auto;">
+  <iframe 
+      style="width:100%; height:750px; border:none; border-radius:10px;" 
+      src="https://voyant-tools.org/tool/Cirrus/?corpus=0acd4b2eab70fe16e3359fce2d69f998">
+  </iframe>
+</div>    
+</iframe>
+ </div>
+
+
+        </section>
+        
+        <!-- ==========================================
+             PIED DE PAGE
+             ========================================== -->
+        <footer>
+            <p>
+                📚 Cours de Data Visualisation – Janvier 2026<br>
+                Texte source : <em>Vingt Mille Lieues sous les Mers</em> de Jules Verne (1870)<br>
+                Outils utilisés : 
+                <a href="https://www.jasondavies.com/wordtree/" target="_blank">WordTree</a> et 
+                <a href="https://voyant-tools.org/" target="_blank">Voyant Tools</a>
+            </p>
+        </footer>
+        
+    </div>
+</body>
+</html>
