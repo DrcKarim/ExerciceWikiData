@@ -28,6 +28,31 @@
       line-height: 1.6;
     }
 
+    /* ===== NAVBAR ===== */
+    nav {
+      background: white;
+      border: 1px solid var(--border);
+      padding: 12px 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+      display: flex;
+      gap: 20px;
+      font-size: 1rem;
+    }
+
+    nav a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    /* ===== TITRES & CARTES ===== */
+
     h1 {
       font-size: 2.2rem;
       margin-bottom: 30px;
@@ -74,13 +99,19 @@
 
 <body>
 
+  <!-- NAVIGATION BAR (added) -->
+  <nav>
+    <a href="index.html">🏙️ Wikidata</a>
+    <a href="text-visualisation.html">📚 Visualisation texte</a>
+    <a href="image-visualisation.html">🖼️ Visualisation image</a>
+  </nav>
+
   <h1>Visualisation des populations de villes françaises</h1>
 
   <div class="card">
     <h2>2. Graphique réalisé avec RAWGraphs</h2>
     <img src="viz.png" alt="Graphique RAWGraphs – population des villes"> 
   </div>
-
 
   <div class="card">
     <h2>1. Graphique issu de Wikidata Query Service</h2>
@@ -91,7 +122,6 @@
       sandbox="allow-scripts allow-same-origin allow-popups">
     </iframe>
   </div>
-
 
   <footer>
     Visualisation réalisée à partir des données Wikidata – Exercice de visualisation
